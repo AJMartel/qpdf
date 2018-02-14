@@ -4,6 +4,23 @@ Before Release
  * Manual: mention content normalization -- see QPDF_Stream.cc in
    anyBadTokens check.
 
+ * Push QPDFObjectHandle's members into Members structure
+
+ * Move Pl_QPDFTokenizer into the public interface and have it be the
+   thing that is responsible for calling TokenFilter::setPipeline().
+   Also push its members into a Members class.
+
+ * Try to set owning qpdf whenever possible by propagating it
+   recursively when on object is added to an array or dictionary. Then
+   rewrite to get rid of assertType and have things return null when
+   the type doesn't match. Consider whether we need some kind of
+   description as well to handle objects that are inside of streams so
+   we can have a sensible location for them. Create errors in object
+   stream objects to test this.
+
+ * Take the functionality of qpdf --check, move it into the library,
+   and expose it to the C API. See message from Žarko.
+
 Soon
 ====
 
